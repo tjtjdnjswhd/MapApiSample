@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: MapApiSample
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
+
+map-service:
+  juso:
+    key: ""

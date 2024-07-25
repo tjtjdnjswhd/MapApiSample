@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script language="JavaScript" th:inline="javascript">
+        function init() {
+            const form = document.querySelector('#juso-form');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const inputYn = urlParams.get('inputYn');
+
+            if (inputYn != "Y") {
+            /*<![CDATA[*/
+            const url = 'https://business.juso.go.kr/addrlink/addrLinkUrl.do';
+            let confirmKey = /*[[${key}]]*/ 'key';
+            let returnUrl = location.href;
+            let resultType = 4;
+            /*]]>*/
+
+            form.confirmKey.value = confirmKey;
+            form.returnUrl.value = returnUrl;
+            form.resultType.value = resultType
+            form.action = url;
+            form.submit();
+            } else {
+                opener.jusoCallback(urlParams);
+                window.close();
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+<form id="juso-form" method="post">
+    <input type="hidden" id="confirmKey" name="confirmKey">
+    <input type="hidden" id="returnUrl" name="returnUrl">
+    <input type="hidden" id="resultType" name="resultType">
+</form>
+</body>
+</html>

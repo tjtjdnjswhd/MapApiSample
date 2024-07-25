@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button id="juso-pop-btn" type="button">주소기반산업지원서비스</button>
+<button id="daum-popup-btn" type="button">다음지도서비스</button>
+
+<h2>주소기반산업지원서비스 결과</h2>
+<div id="juso-result">
+
+</div>
+
+<h2>다음지도서비스 결과</h2>
+<div id="daum-result">
+
+</div>
+
+<script>
+    let jusoBtn = document.querySelector('#juso-pop-btn')
+    jusoBtn.addEventListener('click', () => {
+        window.open("/juso-pop", "pop");
+    });
+
+    let jusoResult = document.querySelector('#juso-result')
+
+    function jusoCallback(data) {
+        jusoResult.appendChild(document.createElement('pre')).innerHTML = JSON.stringify(data, null, 4);
+    }
+</script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+    let daumResult = document.querySelector('#daum-result');
+    let mapService = new daum.Postcode({
+        oncomplete: function (data) {
+            daumResult.childNodes.forEach((child) => child.remove());
+            daumResult.appendChild(document.createElement('pre')).innerHTML = JSON.stringify(data, null, 4);
+        }
+    });
+
+    let daumBtn = document.querySelector('#daum-popup-btn');
+    daumBtn.addEventListener('click', () => mapService.open());
+</script>
+</body>
+</html>

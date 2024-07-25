@@ -17,8 +17,13 @@ public class AddressController {
     }
 
     @GetMapping("/juso-pop")
+    public String getJusoPopUp(Model model) {
+        model.addAttribute("key", jusoKey);
+        return "jusoPopUp";
+    }
+
     @PostMapping("/juso-pop")
-    public String jusoPopUp(Model model) {
+    public String postJusoP1opUp(Model model) {
         model.addAttribute("key", jusoKey);
         return "jusoPopUp";
     }
